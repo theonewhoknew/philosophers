@@ -23,6 +23,7 @@ void *philo_routine(void *arg)
 	
 	++id;
 	run(philo, id);
+	
 }
 
 static void init_simulation(t_philo *philo)
