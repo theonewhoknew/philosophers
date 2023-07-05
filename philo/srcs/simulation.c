@@ -2,31 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <stdio.h>
-
-void *philo_routine(void *arg)
-{	
-	t_philo *philo = (t_philo *)arg;
-	think(philo);
-
-}
-
-static void create_philo(t_philo *philo)
-{
-	int i;
-	t_philo **philo_id;
-
-	philo_id = (t_philo**)malloc(philo->number_of_philo * sizeof (t_philo*));
-	i = 0;
-	while (i < philo->number_of_philo)
-	{	
-		philo->philo[i] = (pthread_t*)malloc(sizeof (pthread_t));
-		philo_id[i] = (t_philo*)malloc(sizeof (t_philo));
-		*philo_id[i] = *philo;
-		philo_id[i]->thread_id = i + 1;
-		pthread_create(philo->philo[i], NULL, &philo_routine, philo_id[i]);
-		i++;
-	}
-}
+#include <unistd.h>
 
 static	void wait_for_threads(t_philo *philo)
 {
@@ -40,10 +16,33 @@ static	void wait_for_threads(t_philo *philo)
 	}
 }
 
-void	simulation(t_philo *philo)
+void *philo_routine(void *arg)
 {	
+	static int id = 0;
+	t_philo *philo = (t_philo *)arg;
+	
+	++id;
+	run(philo, id);
+}
+
+static void init_simulation(t_philo *philo)
+{
+	int i;
 	philo->philo = (pthread_t**)malloc(philo->number_of_philo * sizeof(pthread_t*));
-	create_philo(philo);
+
+	i = 0;
+	while (i < philo->number_of_philo)
+	{	
+		philo->philo[i] = (pthread_t*)malloc(sizeof (pthread_t));
+		pthread_create(philo->philo[i], NULL, &philo_routine, philo);
+		i++;
+		usleep(100);
+	}
+}
+
+void	simulation(t_philo *philo)
+{
+	init_simulation(philo);
 	wait_for_threads(philo);
 	
 }

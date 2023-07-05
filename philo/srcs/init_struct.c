@@ -1,5 +1,6 @@
 #include "../inc/philo.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 static int	ft_atoi(const char *str)
 {
@@ -19,6 +20,7 @@ static int	ft_atoi(const char *str)
 void init_struct(int argc, char **argv, t_philo *philo)
 {	
 	philo->number_of_philo = ft_atoi(argv[1]);
+	philo->forks = (pthread_mutex_t*)malloc(philo->number_of_philo * sizeof (pthread_mutex_t));
 	philo->time_to_die = ft_atoi(argv[2]) * 1000;
 	philo->time_to_eat = ft_atoi(argv[3]) * 1000;
 	philo->time_to_sleep = ft_atoi(argv[4]) * 1000;
