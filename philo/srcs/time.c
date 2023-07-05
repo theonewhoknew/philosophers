@@ -1,7 +1,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-long long get_timestamp()
+long long get_time()
 {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
