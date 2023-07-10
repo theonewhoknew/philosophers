@@ -2,7 +2,7 @@ NAME = philo
 
 OBJECTS_DIR = objs
 	
-SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c run.c time.c end_simulation.c)
+SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c run.c time.c)
 
 OBJS = $(patsubst srcs/%.c,$(OBJECTS_DIR)/%.o, $(SRCS))
 
