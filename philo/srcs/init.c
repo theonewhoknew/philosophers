@@ -17,6 +17,20 @@ static int	ft_atoi(const char *str)
 	return (result);
 }
 
+void init_forks(t_philo *philo)
+{	
+	int i;
+
+	i = 0;
+	while(i < philo->number_of_philo)
+	{	
+		philo->mutex[i] = (pthread_mutex_t*)malloc(sizeof (pthread_mutex_t));
+		pthread_mutex_init(philo->mutex[i], NULL);
+		i++;
+	}
+}
+
+
 void init_struct(int argc, char **argv, t_philo *philo)
 {	
 	int i;
@@ -27,6 +41,10 @@ void init_struct(int argc, char **argv, t_philo *philo)
 	philo->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	philo->death = 0;
 	philo->forks = (int *)malloc(sizeof (int) * philo->number_of_philo);
+	philo->ready = (int *)malloc(sizeof (int) * philo->number_of_philo);
+	philo->thinking = (int *)malloc(sizeof (int) * philo->number_of_philo);
+	philo->times_eaten = (int *)malloc(sizeof (int) * philo->number_of_philo);
+	philo->eaten_enough = (int *)malloc(sizeof (int) * philo->number_of_philo);
 	i = 0;
 	while (i < philo->number_of_philo)
 	{
@@ -34,7 +52,10 @@ void init_struct(int argc, char **argv, t_philo *philo)
 		i++;
 	}
 	if (argc == 6)
+	{	
+		philo->opt_argument = 1;
 		philo->number_of_eat = ft_atoi(argv[5]);
+	}	
 	else
 		philo->number_of_eat = -1;
 }
