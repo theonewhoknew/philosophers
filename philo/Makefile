@@ -2,7 +2,8 @@ NAME = philo
 
 OBJECTS_DIR = objs
 	
-SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c run.c time.c)
+SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c run.c time.c free.c \
+							init_aux.c )
 
 OBJS = $(patsubst srcs/%.c,$(OBJECTS_DIR)/%.o, $(SRCS))
 
@@ -11,7 +12,7 @@ CFLAGS = -Wall -Werror -Wextra -I inc/
 all: $(NAME) 
 
 $(NAME) : $(OBJS) inc/philo.h 
-	cc -pthread -o $(NAME) $(OBJS)
+	cc -pthread -g -o $(NAME) $(OBJS)
 
 objs/%.o : srcs/%.c inc/philo.h | $(OBJECTS_DIR)
 	cc -g -c  $< -o $@

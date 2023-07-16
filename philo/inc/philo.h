@@ -4,25 +4,30 @@
 #include <pthread.h>
 
 typedef struct s_philo
-{
+{	
+	pthread_t **philo;
+	pthread_t **timer;
+	pthread_t *supervisor;
+	pthread_mutex_t **mutex;
+	
 	int	number_of_philo;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_eat;
-	pthread_mutex_t **mutex;
-	int *forks;
-	pthread_t **philo;
-	pthread_t **timer;
-	pthread_t *supervisor;
-	int *times_eaten;
-	int *eaten_enough;
-	int all_have_eaten;
+	
 	int *ready;
-	int simulation_start;
 	int *thinking;
+	int simulation_start;
 	int death;
+	
 	int opt_argument;
+	int *eaten_enough;
+	int *times_eaten;
+	int all_have_eaten;
+	
+	
+	
 
 }				t_philo;
 
@@ -32,7 +37,12 @@ void		simulation(t_philo *philo);
 long long 	get_time();
 void		run(t_philo *philo, int id);
 void		timer(t_philo *philo, int id);
-void		end_simulation(t_philo *philo);
-void 		init_forks(t_philo *philo);
+void 		init_mutex(t_philo *philo);
+void 		free_struct(t_philo *philo);
+void 		unlock_mutex(t_philo *philo);
+void 		init_ready(t_philo *philo);
+void 		init_thinking(t_philo *philo);
+void 		init_times_eaten(t_philo *philo);
+void 		init_eaten_enough(t_philo *philo);
 
 #endif
