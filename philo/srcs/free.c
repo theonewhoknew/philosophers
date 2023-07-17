@@ -21,7 +21,7 @@ static void	free_mutex(t_philo *philo)
 	free(philo->mutex);
 }
 
-static void free_philo(t_philo *philo)
+void free_philo(t_philo *philo)
 {	
 	int i;
 
@@ -34,7 +34,7 @@ static void free_philo(t_philo *philo)
 	free(philo->philo);
 }
 
-static void free_timer(t_philo *philo)
+void free_timer(t_philo *philo)
 {	
 	int i;
 

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/17 10:09:10 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/17 11:57:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ static void	*philo_routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-
 	++id;
-	run(philo, id);
+	run_philo(philo, id);
 }
 
 void	simulation(t_philo *philo)
@@ -78,8 +77,6 @@ void	simulation(t_philo *philo)
 
 	while (i < philo->n)
 	{
-		philo->philo[i] = (pthread_t*)malloc(sizeof (pthread_t));
-		philo->timer[i] = (pthread_t*)malloc(sizeof (pthread_t));
 		pthread_create(philo->philo[i], NULL, &philo_routine, philo);
 		pthread_create(philo->timer[i], NULL, &timer_routine, philo);
 		i++;
