@@ -7,13 +7,13 @@ static void	free_mutex(t_philo *philo)
 	int i;
 
 	i = 0;
-	while(i < philo->number_of_philo)
+	while(i < philo->n)
 	{
 		pthread_mutex_destroy(philo->mutex[i]);
 		i++;
 	}
 	i = 0;
-	while(i < philo->number_of_philo)
+	while(i < philo->n)
 	{
 		free(philo->mutex[i]);
 		i++;
@@ -26,7 +26,7 @@ static void free_philo(t_philo *philo)
 	int i;
 
 	i = 0;
-	while(i < philo->number_of_philo)
+	while(i < philo->n)
 	{
 		free(philo->philo[i]);
 		i++;
@@ -39,7 +39,7 @@ static void free_timer(t_philo *philo)
 	int i;
 
 	i = 0;
-	while(i < philo->number_of_philo)
+	while(i < philo->n)
 	{
 		free(philo->timer[i]);
 		i++;
@@ -54,7 +54,7 @@ void free_struct(t_philo *philo)
 	free_mutex(philo);
 	free(philo->ready);
 	free(philo->thinking);
-	if (philo->opt_argument == 1)
+	if (philo->opt == 1)
 	{
 		free(philo->supervisor);
 		free(philo->times_eaten);

@@ -3,7 +3,7 @@ NAME = philo
 OBJECTS_DIR = objs
 	
 SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c run.c time.c free.c \
-							init_aux.c )
+							init_aux.c run_aux.c allocate.c fill.c)
 
 OBJS = $(patsubst srcs/%.c,$(OBJECTS_DIR)/%.o, $(SRCS))
 

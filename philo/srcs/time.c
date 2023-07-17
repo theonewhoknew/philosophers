@@ -15,7 +15,7 @@ static void	unlock(t_philo *philo, int id)
 	if (id == 1)
 	{
 		pthread_mutex_unlock(philo->mutex[0]);
-		pthread_mutex_unlock(philo->mutex[philo->number_of_philo - 1]);
+		pthread_mutex_unlock(philo->mutex[philo->n - 1]);
 	}
 	else
 	{
@@ -29,19 +29,18 @@ void timer(t_philo *philo, int id)
 	long long	og_time;
 	int			elapsed;
 
-	while (philo->simulation_start != 1)
+	while (philo->start != 1)
 		;
-	while (philo->death != 1)
-	{
+	while (philo->death != 1 && philo->all_have_eaten != 1)
+	{	
 		while (philo->thinking[id - 1] != 1)
-			;
+			if (philo->death == 1 || philo->all_have_eaten == 1)
+				break ;
 		og_time = get_time();
-		while (philo->thinking[id - 1] == 1 && philo->death == 0)
+		while (philo->thinking[id - 1] != 0 && philo->death != 1 && philo->all_have_eaten != 1)
 		{	
 			elapsed = get_time() - og_time;
-			//printf("time to die: %d\n", philo->time_to_die);
-			//printf("elapsed time: %d\n", elapsed);
-			if (elapsed > philo->time_to_die)
+			if (elapsed > philo->tdie)
 			{	
 				printf("%llu %d died\n", get_time(), id);
 				philo->death = 1;

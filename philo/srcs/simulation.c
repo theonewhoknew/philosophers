@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/16 14:05:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/17 10:09:10 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static	void	wait_for_threads(t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (i < philo->number_of_philo)
+	while (i < philo->n)
 	{
 		pthread_join(*(philo->philo[i]), NULL);
 		pthread_join(*(philo->timer[i]), NULL);
 		i++;
 	}
-	if (philo->opt_argument == 1)
+	if (philo->opt == 1)
 		pthread_join(*(philo->supervisor), NULL);
 }
 
@@ -40,7 +40,7 @@ static void	*super_routine(void *arg)
 	while (philo->death != 1 && philo->all_have_eaten != 1)
 	{
 		i = 0;
-		while (i < philo->number_of_philo)
+		while (i < philo->n && philo->death != 1)
 		{
 			if (philo->eaten_enough[i] == 1)
 				i++;
@@ -58,7 +58,6 @@ static void	*timer_routine(void *arg)
 
 	++id;
 	timer(philo, id);
-	//printf("sale de timer routine\n");
 }
 
 static void	*philo_routine(void *arg)
@@ -70,16 +69,14 @@ static void	*philo_routine(void *arg)
 
 	++id;
 	run(philo, id);
-	printf("salimos de philo routine, id %d\n", id);
 }
 
 void	simulation(t_philo *philo)
 {
 	int i;
 	i = 0;
-	init_mutex(philo);
-	//printf("number of philo is %d\n", philo->number_of_philo);
-	while (i < philo->number_of_philo)
+
+	while (i < philo->n)
 	{
 		philo->philo[i] = (pthread_t*)malloc(sizeof (pthread_t));
 		philo->timer[i] = (pthread_t*)malloc(sizeof (pthread_t));
@@ -88,7 +85,7 @@ void	simulation(t_philo *philo)
 		i++;
 		usleep(10);
 	}
-	if (philo->opt_argument == 1)
+	if (philo->opt == 1)
 	{	
 		philo->supervisor = (pthread_t *)malloc(sizeof (pthread_t));
 		pthread_create(philo->supervisor, NULL, &super_routine, philo);

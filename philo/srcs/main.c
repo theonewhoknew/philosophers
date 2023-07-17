@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/16 13:44:41 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/17 10:30:33 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int	main(int argc, char **argv)
 
 	if (check_args(argc, argv) == 1)
 	{	
-		write(2, "Wrong number of arguments entered.\n", 36);
-		return (0);
+		write(2, "Argument error.\n", 17);
+		return (1);
 	}
 	init_struct(argc, argv, &philo);
+	if (allocate_struct(&philo) == 1)
+		return (1);
 	simulation(&philo);
+	printf("sale de simulation\n");
 	free_struct(&philo);
 }
