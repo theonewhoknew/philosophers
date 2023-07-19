@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/17 11:57:08 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 10:03:04 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int	main(int argc, char **argv)
 	if (allocate_struct(&philo) == 1)
 		return (1);
 	simulation(&philo);
-	printf("sale de simulation\n");
 	free_struct(&philo);
 }

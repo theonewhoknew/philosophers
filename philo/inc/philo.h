@@ -2,6 +2,7 @@
 # define PHILO_H
 
 #include <pthread.h>
+#include <stdint.h>
 
 typedef struct s_philo
 {	
@@ -35,7 +36,6 @@ int			check_args(int argc, char **argv);
 int			init_struct(int argc, char **argv, t_philo *philo);
 int 		allocate_struct(t_philo *philo);
 void		simulation(t_philo *philo);
-long long 	get_time();
 void		run_philo(t_philo *philo, int id);
 void		timer(t_philo *philo, int id);
 void 		free_struct(t_philo *philo);
@@ -51,11 +51,17 @@ int			alloc_mutex(t_philo *philo);
 void 		free_philo(t_philo *philo);
 void 		free_timer(t_philo *philo);
 
+void		*super_routine(void *arg);
+
 int			p_think(t_philo *philo, int id, int *delay);
 int			p_eat(t_philo *philo, int id);
 int			p_sleep(t_philo *philo, int id);
 
-int		grab_forks(t_philo *philo, int id);
-int		release_forks(t_philo *philo, int id);
+int			grab_forks(t_philo *philo, int id);
+void		release_forks(t_philo *philo, int id);
+void		release_all(t_philo *philo);
+
+uint64_t	get_time(void);
+int			ft_usleep(__useconds_t time);
 
 #endif

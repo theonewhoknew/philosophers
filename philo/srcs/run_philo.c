@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/17 12:39:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 10:19:50 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,13 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-static int	all_ready(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->n)
-	{
-		if (philo->ready[i] == 1)
-			i++;
-	}
-	philo->start = 1;
-	return (1);
-}
-
 void	run_philo(t_philo *philo, int id)
 {	
 	int delay;
 
 	delay = 0;
 	philo->ready[id - 1] = 1;
-	while (all_ready(philo) != 1)
+	while (philo->start != 1)
 		;
 	while (philo->death != 1 && philo->all_have_eaten != 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/17 11:57:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/19 10:21:49 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,7 @@ static	void	wait_for_threads(t_philo *philo)
 		pthread_join(*(philo->timer[i]), NULL);
 		i++;
 	}
-	if (philo->opt == 1)
-		pthread_join(*(philo->supervisor), NULL);
-}
-
-static void	*super_routine(void *arg)
-{
-	int	i;
-	t_philo	*philo;
-	
-	philo = (t_philo *)arg;
-	while (philo->death != 1 && philo->all_have_eaten != 1)
-	{
-		i = 0;
-		while (i < philo->n && philo->death != 1)
-		{
-			if (philo->eaten_enough[i] == 1)
-				i++;
-		}
-		philo->all_have_eaten = 1;
-	}
+	pthread_join(*(philo->supervisor), NULL);
 }
 
 static void	*timer_routine(void *arg)
@@ -82,10 +63,7 @@ void	simulation(t_philo *philo)
 		i++;
 		usleep(10);
 	}
-	if (philo->opt == 1)
-	{	
-		philo->supervisor = (pthread_t *)malloc(sizeof (pthread_t));
-		pthread_create(philo->supervisor, NULL, &super_routine, philo);
-	}	
+	philo->supervisor = (pthread_t *)malloc(sizeof (pthread_t));
+	pthread_create(philo->supervisor, NULL, &super_routine, philo);
 	wait_for_threads(philo);
 }
