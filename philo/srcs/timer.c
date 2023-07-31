@@ -32,13 +32,13 @@ void timer(t_philo *philo, int id)
 		;
 	while (philo->death != 1 && philo->all_have_eaten != 1)
 	{	
-		while (philo->eating[id - 1] != 1)
+		while (philo->eating[id - 1] != 0)
 		{
 			if (philo->death == 1 || philo->all_have_eaten == 1)
 				break ;
 		}
 		og_time = get_time();
-		while (philo->eating[id - 1] != 0 && philo->death != 1 && philo->all_have_eaten != 1)
+		while (philo->eating[id - 1] != 1 && philo->death != 1 && philo->all_have_eaten != 1)
 		{	
 			elapsed = get_time() - og_time;
 			//printf("elapsed is %d, tdie is %d\n", elapsed, philo->tdie);
