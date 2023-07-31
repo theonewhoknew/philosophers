@@ -1,8 +1,10 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <pthread.h>
-#include <stdint.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdint.h>
 
 typedef struct s_philo
 {	
@@ -18,7 +20,7 @@ typedef struct s_philo
 	int	neat;
 	
 	int *ready;
-	int *thinking;
+	int *eating;
 	int start;
 	int death;
 	
@@ -26,10 +28,6 @@ typedef struct s_philo
 	int *eaten_enough;
 	int *times_eaten;
 	int all_have_eaten;
-	
-	
-	
-
 }				t_philo;
 
 int			check_args(int argc, char **argv);
@@ -40,7 +38,7 @@ void		run_philo(t_philo *philo, int id);
 void		timer(t_philo *philo, int id);
 void 		free_struct(t_philo *philo);
 void 		fill_ready(t_philo *philo);
-void 		fill_thinking(t_philo *philo);
+void 		fill_eating(t_philo *philo);
 void 		fill_times_eaten(t_philo *philo);
 void 		fill_eaten_enough(t_philo *philo);
 
@@ -62,6 +60,6 @@ void		release_forks(t_philo *philo, int id);
 void		release_all(t_philo *philo);
 
 uint64_t	get_time(void);
-int			ft_usleep(__useconds_t time);
+int			ft_usleep(useconds_t time);
 
 #endif

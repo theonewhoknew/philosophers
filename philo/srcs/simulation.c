@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 10:21:49 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/07/31 12:35:22 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	*timer_routine(void *arg)
 
 	++id;
 	timer(philo, id);
+	return (NULL);
 }
 
 static void	*philo_routine(void *arg)
@@ -49,6 +50,7 @@ static void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	++id;
 	run_philo(philo, id);
+	return (NULL);
 }
 
 void	simulation(t_philo *philo)

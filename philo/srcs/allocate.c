@@ -1,3 +1,4 @@
+
 #include "../inc/philo.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,8 +13,8 @@ static int alloc_error(t_philo *philo)
 		free(philo->mutex);
 	if (philo->ready != NULL)
 		free(philo->ready);
-	if (philo->thinking != NULL)
-		free(philo->thinking);
+	if (philo->eating != NULL)
+		free(philo->eating);
 	if (philo->opt == 1)
 	{
 		if (philo->times_eaten != NULL)
@@ -57,6 +58,7 @@ static int	philo_timer_mutex(t_philo *philo)
 		free_timer(philo);
 		return (1);
 	}
+	return (0);
 }
 
 int allocate_struct(t_philo *philo)
@@ -74,10 +76,10 @@ int allocate_struct(t_philo *philo)
 	if (philo->ready == NULL)
 		return (alloc_error(philo));
 	fill_ready(philo);
-	philo->thinking = (int *)malloc(sizeof (int) * philo->n);
-	if (philo->thinking == NULL)
+	philo->eating = (int *)malloc(sizeof (int) * philo->n);
+	if (philo->eating == NULL)
 		return (alloc_error(philo));
-	fill_thinking(philo);
+	fill_eating(philo);
 	if (alloc_opt(philo) == 1)
 		return (alloc_error(philo));
 	if (philo_timer_mutex(philo) == 1)

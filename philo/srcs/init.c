@@ -33,7 +33,7 @@ int init_struct(int argc, char **argv, t_philo *philo)
 	philo->timer = NULL;
 	philo->mutex = NULL;
 	philo->ready = NULL;
-	philo->thinking = NULL;
+	philo->eating = NULL;
 	if (argc == 6)
 	{
 		philo->opt = 1;

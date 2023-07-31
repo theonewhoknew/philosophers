@@ -12,14 +12,14 @@ void fill_ready(t_philo *philo)
 	}
 }
 
-void fill_thinking(t_philo *philo)
+void fill_eating(t_philo *philo)
 {
 	int i;
 
 	i = 0;
 	while(i < philo->n)
 	{	
-		philo->thinking[i] = 0;
+		philo->eating[i] = 0;
 		i++;
 	}
 }

@@ -53,7 +53,7 @@ void free_struct(t_philo *philo)
 	free_timer(philo);
 	free_mutex(philo);
 	free(philo->ready);
-	free(philo->thinking);
+	free(philo->eating);
 	if (philo->opt == 1)
 	{
 		free(philo->supervisor);

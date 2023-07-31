@@ -24,5 +24,6 @@ int check_args(int argc, char **argv)
 		if (all_digits(argv[i]) == 1)
 			return (1);
 		i++;
-	} 
+	}
+	return (0);
 }

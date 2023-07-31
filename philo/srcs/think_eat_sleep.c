@@ -6,8 +6,9 @@ int	p_think(t_philo *philo, int id, int *delay)
 {	
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
-	philo->thinking[id - 1] = 1;
-	printf("%lu %d is thinking\n", get_time(), id);
+	philo->eating[id - 1] = 0;
+	printf("%llu %d is thinking\n", get_time(), id);
+	return (0);
 	/* if ((id % 2) != 0 && *delay == 0)
 	{	
 		usleep(philo->teat * 0.5);
@@ -19,10 +20,10 @@ int	p_eat(t_philo *philo, int id)
 {
 	if (grab_forks(philo, id) == 1)
 		return (1);
-	philo->thinking[id - 1] = 0;
+	philo->eating[id - 1] = 1;
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
-	printf("%lu %d is eating\n", get_time(), id);
+	printf("%llu %d is eating\n", get_time(), id);
 	ft_usleep(philo->teat);
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
@@ -40,6 +41,8 @@ int	p_sleep(t_philo *philo, int id)
 {	
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
-	printf("%lu %d is sleeping\n", get_time(), id);
+	philo->eating[id - 1] = 0;
+	printf("%llu %d is sleeping\n", get_time(), id);
 	ft_usleep(philo->tsleep);
+	return (0);
 }

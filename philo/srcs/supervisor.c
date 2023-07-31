@@ -38,4 +38,5 @@ void	*super_routine(void *arg)
 			philo->all_have_eaten = 1;
 		}
 	}
+	return (NULL);
 }
