@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:16:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:47:40 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ void	release_forks(t_philo *philo, int id)
 static void	one_fork(t_philo *philo, int id)
 {
 	pthread_mutex_lock(philo->mutex[0]);
-	printf("%llu %d has taken a fork\n", get_time(), id);
+	printf("%llu %d has taken left fork\n", get_time(philo), id);
 	while (philo->death != 1)
 		;
 }
 
 static int	philosoper_one(t_philo *philo, int id)
 {
-	if (philo->death == 1 || philo->all_have_eaten == 1)
-		return (1);
 	pthread_mutex_lock(philo->mutex[0]);
-	printf("%llu %d has taken a fork\n", get_time(), id);
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
+	printf("%llu %d has taken left fork\n", get_time(philo), id);
 	pthread_mutex_lock(philo->mutex[philo->n - 1]);
-	printf("%llu %d has taken a fork\n", get_time(), id);
+	if (philo->death == 1 || philo->all_have_eaten == 1)
+		return (1);
+	printf("%llu %d has taken right fork\n", get_time(philo), id);
 	return (0);
 }
 
@@ -73,11 +73,11 @@ int	grab_forks(t_philo *philo, int id)
 			pthread_mutex_lock(philo->mutex[id - 1]);
 			if (philo->death == 1 || philo->all_have_eaten == 1)
 				return (1);
-			printf("%llu %d has taken a fork\n", get_time(), id);
+			printf("%llu %d has taken left fork\n", get_time(philo), id);
 			pthread_mutex_lock(philo->mutex[id - 2]);
 			if (philo->death == 1 || philo->all_have_eaten == 1)
 				return (1);
-			printf("%llu %d has taken a fork\n", get_time(), id);
+			printf("%llu %d has taken right fork\n", get_time(philo), id);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:36:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:39:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int			grab_forks(t_philo *philo, int id);
 void		release_forks(t_philo *philo, int id);
 void		release_all(t_philo *philo);
 
-uint64_t	get_time(void);
-int			ft_usleep(useconds_t time);
+uint64_t	get_time(t_philo *philo);
+uint64_t	get_start_time(void);
+int			ft_usleep(t_philo *philo, useconds_t time);
 
 #endif

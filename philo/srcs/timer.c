@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:21:28 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:37:09 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:54:18 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <unistd.h>
 
-uint64_t	get_time(void)
+uint64_t	get_start_time(void)
 {
 	struct timeval	tv;
 
@@ -26,12 +26,21 @@ uint64_t	get_time(void)
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
 
-int	ft_usleep(useconds_t time)
+uint64_t	get_time(t_philo *philo)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
+		return (1);
+	return (((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000)) - philo->start_time);
+}
+
+int	ft_usleep(t_philo *philo, useconds_t time)
 {
 	uint64_t	start;
 
-	start = get_time();
-	while (get_time() - start < time)
+	start = get_time(philo);
+	while (get_time(philo) - start < time)
 		usleep(time / 10);
 	return (0);
 }
@@ -39,7 +48,7 @@ int	ft_usleep(useconds_t time)
 static void	philo_died(t_philo *philo, int id)
 {
 	philo->death = 1;
-	printf("%llu %d died\n", get_time(), id);
+	printf("%llu %d died\n", get_time(philo), id);
 	release_all(philo);
 	return ;
 }
@@ -58,11 +67,11 @@ void	timer(t_philo *philo, int id)
 			if (philo->death == 1 || philo->all_have_eaten == 1)
 				break ;
 		}
-		last_meal_time = get_time();
+		last_meal_time = get_time(philo);
 		while (philo->eating[id - 1] == 0 && philo->all_have_eaten != 1
 			&& philo->death != 1)
 		{
-			elapsed = get_time() - last_meal_time;
+			elapsed = get_time(philo) - last_meal_time;
 			if (elapsed > philo->tdie)
 				return (philo_died(philo, id));
 		}

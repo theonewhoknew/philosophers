@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:19:27 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:37:27 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:42:36 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	all_ready(t_philo *philo)
 		if (philo->ready[i] == 1)
 			i++;
 	}
+	philo->start_time = get_start_time();
 	philo->start = 1;
 	return (1);
 }
