@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
+/*   Updated: 2023/09/06 09:18:01 by dtome-pe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philo.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,9 +37,8 @@ static void	assign_args(int argc, char **argv, t_philo *philo)
 	philo->tsleep = ft_atoi(argv[4]);
 }
 
-
-int init_struct(int argc, char **argv, t_philo *philo)
-{	
+int	init_struct(int argc, char **argv, t_philo *philo)
+{
 	assign_args(argc, argv, philo);
 	philo->philo = NULL;
 	philo->timer = NULL;
@@ -47,5 +58,5 @@ int init_struct(int argc, char **argv, t_philo *philo)
 		philo->opt = 0;
 	philo->death = 0;
 	philo->start = 0;
-	return (0);	
+	return (0);
 }

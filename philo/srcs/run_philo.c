@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_philo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/19 10:19:50 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/06 09:18:33 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <stdio.h>
 
 void	run_philo(t_philo *philo, int id)
-{	
-	int delay;
+{
+	int	delay;
 
 	delay = 0;
 	philo->ready[id - 1] = 1;

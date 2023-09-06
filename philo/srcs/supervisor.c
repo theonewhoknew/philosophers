@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   supervisor.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 09:19:27 by dtome-pe          #+#    #+#             */
+/*   Updated: 2023/09/06 09:37:27 by dtome-pe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/philo.h"
 #include <stdio.h>
 
@@ -17,9 +29,9 @@ static int	all_ready(t_philo *philo)
 
 void	*super_routine(void *arg)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
-	
+
 	philo = (t_philo *)arg;
 	while (all_ready(philo) != 1)
 		;

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/07/31 12:35:22 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:19:11 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ static	void	wait_for_threads(t_philo *philo)
 static void	*timer_routine(void *arg)
 {
 	static int	id;
-	t_philo		*philo; 
+	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-
 	++id;
 	timer(philo, id);
 	return (NULL);
@@ -55,9 +54,9 @@ static void	*philo_routine(void *arg)
 
 void	simulation(t_philo *philo)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	while (i < philo->n)
 	{
 		pthread_create(philo->philo[i], NULL, &philo_routine, philo);

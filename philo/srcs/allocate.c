@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   allocate.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 09:12:14 by dtome-pe          #+#    #+#             */
+/*   Updated: 2023/09/06 09:13:53 by dtome-pe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../inc/philo.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-static int alloc_error(t_philo *philo)
+static int	alloc_error(t_philo *philo)
 {
 	if (philo->philo != NULL)
 		free(philo->philo);
@@ -25,7 +36,7 @@ static int alloc_error(t_philo *philo)
 	return (1);
 }
 
-static int alloc_opt(t_philo *philo)
+static int	alloc_opt(t_philo *philo)
 {
 	if (philo->opt == 1)
 	{
@@ -48,7 +59,7 @@ static int	philo_timer_mutex(t_philo *philo)
 	if (alloc_philo(philo) == 1)
 		return (1);
 	if (alloc_timer(philo) == 1)
-	{	
+	{
 		free_philo(philo);
 		return (1);
 	}
@@ -61,15 +72,16 @@ static int	philo_timer_mutex(t_philo *philo)
 	return (0);
 }
 
-int allocate_struct(t_philo *philo)
-{	
-	philo->philo = (pthread_t**)malloc(philo->n * sizeof (pthread_t*));
+int	allocate_struct(t_philo *philo)
+{
+	philo->philo = (pthread_t **)malloc(philo->n * sizeof (pthread_t *));
 	if (philo->philo == NULL)
 		return (alloc_error(philo));
-	philo->timer = (pthread_t**)malloc(philo->n * sizeof (pthread_t*));
+	philo->timer = (pthread_t **)malloc(philo->n * sizeof (pthread_t *));
 	if (philo->timer == NULL)
 		return (alloc_error(philo));
-	philo->mutex = (pthread_mutex_t**)malloc(philo->n * sizeof (pthread_mutex_t*));
+	philo->mutex = (pthread_mutex_t **)malloc
+		(philo->n * sizeof (pthread_mutex_t*));
 	if (philo->mutex == NULL)
 		return (alloc_error(philo));
 	philo->ready = (int *)malloc(sizeof (int) * philo->n);
@@ -84,5 +96,5 @@ int allocate_struct(t_philo *philo)
 		return (alloc_error(philo));
 	if (philo_timer_mutex(philo) == 1)
 		return (alloc_error(philo));
-	return (0);	
+	return (0);
 }
