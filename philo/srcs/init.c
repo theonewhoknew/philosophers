@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:18:01 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:58:55 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,32 @@ static int	ft_atoi(const char *str)
 	return (result);
 }
 
-static void	assign_args(int argc, char **argv, t_philo *philo)
+static void	assign_args(int argc, char **argv, t_philo *p)
 {
-	philo->n = ft_atoi(argv[1]);
-	philo->tdie = ft_atoi(argv[2]);
-	philo->teat = ft_atoi(argv[3]);
-	philo->tsleep = ft_atoi(argv[4]);
+	p->n = ft_atoi(argv[1]);
+	p->tdie = ft_atoi(argv[2]);
+	p->teat = ft_atoi(argv[3]);
+	p->tsleep = ft_atoi(argv[4]);
 }
 
-int	init_struct(int argc, char **argv, t_philo *philo)
+int	init_struct(int argc, char **argv, t_philo *p)
 {
-	assign_args(argc, argv, philo);
-	philo->philo = NULL;
-	philo->timer = NULL;
-	philo->mutex = NULL;
-	philo->ready = NULL;
-	philo->eating = NULL;
+	assign_args(argc, argv, p);
+	p->philo = NULL;
+	p->timer = NULL;
+	p->mutex = NULL;
+	p->eating = NULL;
 	if (argc == 6)
 	{
-		philo->opt = 1;
-		philo->neat = ft_atoi(argv[5]);
-		philo->all_have_eaten = 0;
-		philo->times_eaten = NULL;
-		philo->eaten_enough = NULL;
-		philo->supervisor = NULL;
+		p->opt = 1;
+		p->neat = ft_atoi(argv[5]);
+		p->all_have_eaten = 0;
+		p->times_eaten = NULL;
+		p->eaten_enough = NULL;
+		p->supervisor = NULL;
 	}
 	else
-		philo->opt = 0;
-	philo->death = 0;
-	philo->start = 0;
+		p->opt = 0;
+	p->death = 0;
 	return (0);
 }

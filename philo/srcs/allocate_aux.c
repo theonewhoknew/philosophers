@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:10:11 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:12:03 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:03:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	alloc_philo(t_philo *philo)
+int	alloc_philo(t_philo *p)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		philo->philo[i] = (pthread_t *)malloc(sizeof (pthread_t));
-		if (philo->philo[i] == NULL)
+		p->philo[i] = (pthread_t *)malloc(sizeof (pthread_t));
+		if (p->philo[i] == NULL)
 		{
 			--i;
 			while (i >= 0)
 			{
-				free(philo->philo[i]);
+				free(p->philo[i]);
 				--i;
 			}
 			return (1);
@@ -37,20 +37,20 @@ int	alloc_philo(t_philo *philo)
 	return (0);
 }
 
-int	alloc_timer(t_philo *philo)
+int	alloc_timer(t_philo *p)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		philo->timer[i] = (pthread_t *)malloc(sizeof (pthread_t));
-		if (philo->timer[i] == NULL)
+		p->timer[i] = (pthread_t *)malloc(sizeof (pthread_t));
+		if (p->timer[i] == NULL)
 		{
 			--i;
 			while (i >= 0)
 			{
-				free(philo->timer[i]);
+				free(p->timer[i]);
 				--i;
 			}
 			return (1);
@@ -60,25 +60,25 @@ int	alloc_timer(t_philo *philo)
 	return (0);
 }
 
-int	alloc_mutex(t_philo *philo)
+int	alloc_mutex(t_philo *p)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		philo->mutex[i] = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
-		if (philo->mutex[i] == NULL)
+		p->mutex[i] = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
+		if (p->mutex[i] == NULL)
 		{
 			--i;
 			while (i >= 0)
 			{
-				free(philo->mutex[i]);
+				free(p->mutex[i]);
 				--i;
 			}
 			return (1);
 		}
-		pthread_mutex_init(philo->mutex[i], NULL);
+		pthread_mutex_init(p->mutex[i], NULL);
 		i++;
 	}
 	return (0);

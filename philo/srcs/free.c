@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:16:33 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:17:33 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:59:04 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,61 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	free_mutex(t_philo *philo)
+static void	free_mutex(t_philo *p)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		pthread_mutex_destroy(philo->mutex[i]);
+		pthread_mutex_destroy(p->mutex[i]);
 		i++;
 	}
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		free(philo->mutex[i]);
+		free(p->mutex[i]);
 		i++;
 	}
-	free(philo->mutex);
+	free(p->mutex);
 }
 
-void	free_philo(t_philo *philo)
+void	free_philo(t_philo *p)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		free(philo->philo[i]);
+		free(p->philo[i]);
 		i++;
 	}
-	free(philo->philo);
+	free(p->philo);
 }
 
-void	free_timer(t_philo *philo)
+void	free_timer(t_philo *p)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->n)
+	while (i < p->n)
 	{
-		free(philo->timer[i]);
+		free(p->timer[i]);
 		i++;
 	}
-	free(philo->timer);
+	free(p->timer);
 }
 
-void	free_struct(t_philo *philo)
+void	free_struct(t_philo *p)
 {
-	free_philo(philo);
-	free_timer(philo);
-	free_mutex(philo);
-	free(philo->ready);
-	free(philo->eating);
-	if (philo->opt == 1)
+	free_philo(p);
+	free_timer(p);
+	free_mutex(p);
+	free(p->eating);
+	if (p->opt == 1)
 	{
-		free(philo->supervisor);
-		free(philo->times_eaten);
-		free(philo->eaten_enough);
+		free(p->supervisor);
+		free(p->times_eaten);
+		free(p->eaten_enough);
 	}
 }

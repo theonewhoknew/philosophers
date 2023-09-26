@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 10:30:20 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:59:49 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ typedef struct s_philo
 	int				teat;
 	int				tsleep;
 	int				neat;
-	int				*ready;
 	int				*eating;
-	int				start;
 	int				death;
 	int				opt;
 	int				*eaten_enough;
@@ -47,7 +45,6 @@ void		simulation(t_philo *philo);
 void		run_philo(t_philo *philo, int id);
 void		timer(t_philo *philo, int id);
 void		free_struct(t_philo *philo);
-void		fill_ready(t_philo *philo);
 void		fill_eating(t_philo *philo);
 void		fill_times_eaten(t_philo *philo);
 void		fill_eaten_enough(t_philo *philo);

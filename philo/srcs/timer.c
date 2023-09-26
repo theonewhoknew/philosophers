@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:21:28 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 11:50:49 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:58:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,68 +17,38 @@
 #include <stdint.h>
 #include <unistd.h>
 
-uint64_t	get_start_time(void)
+static void	philo_died(t_philo *p, int id)
 {
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL))
-		return (1);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
-}
-
-uint64_t	get_time(t_philo *philo)
-{
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL))
-		return (1);
-	return (((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000)) - philo->start_time);
-}
-
-int	ft_usleep(useconds_t time)
-{
-	uint64_t	start;
-
-	start = get_start_time();
-	while (get_start_time() - start < time)
-		usleep(time / 10);
-	return (0);
-}
-
-static void	philo_died(t_philo *philo, int id)
-{
-	philo->death = 1;
-	printf("%llu %d died\n", get_time(philo), id);
-	release_all(philo);
+	p->death = 1;
+	printf("%llu %d died\n", get_time(p), id);
+	release_all(p);
 	return ;
 }
 
-void	timer(t_philo *philo, int id)
+void	timer(t_philo *p, int id)
 {
 	uint64_t	last_meal_time;
 	uint64_t	elapsed;
 
-	while (philo->start != 1)
-		;
-	while (philo->death != 1 && philo->all_have_eaten != 1)
-	{	
-		printf("%llu %d started eating\n", get_time(philo), id);
-		while (philo->eating[id - 1] == 1)
+	last_meal_time = 0;
+	while (p->death != 1 && p->all_have_eaten != 1)
+	{
+		while (!p->eating[id - 1] && !p->all_have_eaten
+			&& !p->death)
 		{
-			if (philo->death == 1 || philo->all_have_eaten == 1)
-				break ;
+			elapsed = get_time(p) - last_meal_time;
+			if (elapsed > p->tdie)
+				return (philo_died(p, id));
 		}
-		printf("%llu %d stopped eating\n", get_time(philo), id);
-		last_meal_time = get_time(philo);
-		while (philo->eating[id - 1] == 0 && philo->all_have_eaten != 1
-			&& philo->death != 1)
-		{	
-			//printf("%llu %d  elapsed is\n", get_time(philo), id);
-			elapsed = get_time(philo) - last_meal_time;
-			if (elapsed > philo->tdie)
-				return (philo_died(philo, id));
+		if (p->eating[id - 1])
+			last_meal_time = get_time(p);
+		while (p->eating[id - 1] && !p->all_have_eaten
+			&& !p->death)
+		{
+			elapsed = get_time(p) - last_meal_time;
+			if (elapsed > p->tdie)
+				return (philo_died(p, id));
 		}
-		printf("%llu %d elapsed was %llu\n", get_time(philo), id, elapsed);
 	}
-	release_all(philo);
+	release_all(p);
 }
