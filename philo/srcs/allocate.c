@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:12:14 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 13:14:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:28:28 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 static int	alloc_error(t_philo *p)
 {
-	if (p->philo != NULL)
-		free(p->philo);
-	if (p->timer != NULL)
-		free(p->timer);
-	if (p->mutex != NULL)
-		free(p->mutex);
+	if (p->p != NULL)
+		free(p->p);
+	if (p->t != NULL)
+		free(p->t);
+	if (p->m != NULL)
+		free(p->m);
 	if (p->eating != NULL)
 		free(p->eating);
 	if (p->opt == 1)
@@ -72,20 +72,24 @@ static int	philo_timer_mutex(t_philo *p)
 
 int	allocate_struct(t_philo *p)
 {
-	p->philo = (pthread_t **)malloc(p->n * sizeof (pthread_t *));
-	if (p->philo == NULL)
+	p->p = (pthread_t **)malloc(p->n * sizeof (pthread_t *));
+	if (p->p == NULL)
 		return (alloc_error(p));
-	p->timer = (pthread_t **)malloc(p->n * sizeof (pthread_t *));
-	if (p->timer == NULL)
+	p->t = (pthread_t **)malloc(p->n * sizeof (pthread_t *));
+	if (p->t == NULL)
 		return (alloc_error(p));
-	p->mutex = (pthread_mutex_t **)malloc
+	p->m = (pthread_mutex_t **)malloc
 		(p->n * sizeof (pthread_mutex_t *));
-	if (p->mutex == NULL)
+	if (p->m == NULL)
 		return (alloc_error(p));
 	p->eating = (int *)malloc(sizeof (int) * p->n);
 	if (p->eating == NULL)
 		return (alloc_error(p));
 	fill_eating(p);
+	p->ready = (int *)malloc(sizeof (int) * p->n);
+	if (p->ready == NULL)
+		return (alloc_error(p));
+	fill_ready(p);
 	if (alloc_opt(p) == 1)
 		return (alloc_error(p));
 	if (philo_timer_mutex(p) == 1)

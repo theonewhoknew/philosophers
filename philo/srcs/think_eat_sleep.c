@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:20:09 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 13:20:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:17:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int	p_think(t_philo *p, int id, int *delay)
 	p->eating[id - 1] = 0;
 	printf("%llu %d is thinking\n", get_time(p), id);
 	if (*delay == 0 && (id % 2) == 0)
-	{	
-		printf("%d hace delay\n", id);
-		ft_usleep(20);
+	{
+		ft_usleep(p->teat * 0.9);
 		*delay = 1;
 	}
 	return (0);

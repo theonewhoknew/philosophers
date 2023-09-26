@@ -12,7 +12,7 @@ CFLAGS = -Wall -Werror -Wextra -I inc/
 all: $(NAME) 
 
 $(NAME) : $(OBJS) inc/philo.h 
-	cc -pthread -fsanitize=thread -g -o $(NAME) $(OBJS)
+	gcc -pthread -fsanitize=thread -g -o $(NAME) $(OBJS)
 
 objs/%.o : srcs/%.c inc/philo.h | $(OBJECTS_DIR)
 	cc -g -c  $< -o $@

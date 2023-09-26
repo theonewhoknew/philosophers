@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:16:33 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 12:59:04 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:27:20 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static void	free_mutex(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		pthread_mutex_destroy(p->mutex[i]);
+		pthread_mutex_destroy(p->m[i]);
 		i++;
 	}
 	i = 0;
 	while (i < p->n)
 	{
-		free(p->mutex[i]);
+		free(p->m[i]);
 		i++;
 	}
-	free(p->mutex);
+	free(p->m);
 }
 
 void	free_philo(t_philo *p)
@@ -40,10 +40,10 @@ void	free_philo(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		free(p->philo[i]);
+		free(p->p[i]);
 		i++;
 	}
-	free(p->philo);
+	free(p->p);
 }
 
 void	free_timer(t_philo *p)
@@ -53,10 +53,10 @@ void	free_timer(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		free(p->timer[i]);
+		free(p->t[i]);
 		i++;
 	}
-	free(p->timer);
+	free(p->t);
 }
 
 void	free_struct(t_philo *p)
@@ -67,7 +67,7 @@ void	free_struct(t_philo *p)
 	free(p->eating);
 	if (p->opt == 1)
 	{
-		free(p->supervisor);
+		free(p->s);
 		free(p->times_eaten);
 		free(p->eaten_enough);
 	}

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 13:00:52 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:33:16 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,27 @@ static	void	wait_for_threads(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		pthread_join(*(p->philo[i]), NULL);
-		pthread_join(*(p->timer[i]), NULL);
+		pthread_join(*(p->p[i]), NULL);
+		pthread_join(*(p->t[i]), NULL);
 		i++;
 	}
-	pthread_join(*(p->supervisor), NULL);
+	pthread_join(*(p->s), NULL);
 }
 
-static void	*timer_routine(void *arg)
+static void	*t_r(void *arg)
 {
 	static int	id;
 	t_philo		*p;
 
 	p = (t_philo *)arg;
 	++id;
+	while (!p->start)
+		continue ;
 	timer(p, id);
 	return (NULL);
 }
 
-static void	*philo_routine(void *arg)
+static void	*p_r(void *arg)
 {
 	static int	id;
 	t_philo		*p;
@@ -57,15 +59,14 @@ void	simulation(t_philo *p)
 	int	i;
 
 	i = 0;
-	p->start_time = get_start_time();
+	p->s_t = get_start_time();
 	while (i < p->n)
 	{
-		pthread_create(p->philo[i], NULL, &philo_routine, p);
-		pthread_create(p->timer[i], NULL, &timer_routine, p);
+		pthread_create(p->p[i], NULL, &p_r, p);
+		pthread_create(p->t[i], NULL, &t_r, p);
 		i++;
-		ft_usleep(10);
 	}
-	p->supervisor = (pthread_t *)malloc(sizeof (pthread_t));
-	pthread_create(p->supervisor, NULL, &super_routine, p);
+	p->s = (pthread_t *)malloc(sizeof (pthread_t));
+	pthread_create(p->s, NULL, &super_routine, p);
 	wait_for_threads(p);
 }

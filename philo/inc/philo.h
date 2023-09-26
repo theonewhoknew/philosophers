@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 12:59:49 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:32:08 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 
 typedef struct s_philo
 {
-	pthread_t		**philo;
-	pthread_t		**timer;
-	pthread_mutex_t	**mutex;
-	pthread_t		*supervisor;
-	uint64_t		start_time;
+	pthread_t		**p;
+	pthread_t		**t;
+	pthread_mutex_t	**m;
+	pthread_t		*s;
+	uint64_t		s_t;
 	int				n;
+	int				start;
 	int				tdie;
 	int				teat;
 	int				tsleep;
@@ -33,6 +34,7 @@ typedef struct s_philo
 	int				*eating;
 	int				death;
 	int				opt;
+	int				*ready;
 	int				*eaten_enough;
 	int				*times_eaten;
 	int				all_have_eaten;
@@ -45,6 +47,8 @@ void		simulation(t_philo *philo);
 void		run_philo(t_philo *philo, int id);
 void		timer(t_philo *philo, int id);
 void		free_struct(t_philo *philo);
+
+void		fill_ready(t_philo *p);
 void		fill_eating(t_philo *philo);
 void		fill_times_eaten(t_philo *philo);
 void		fill_eaten_enough(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:10:11 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 10:03:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:28:52 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	alloc_philo(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		p->philo[i] = (pthread_t *)malloc(sizeof (pthread_t));
-		if (p->philo[i] == NULL)
+		p->p[i] = (pthread_t *)malloc(sizeof (pthread_t));
+		if (p->p[i] == NULL)
 		{
 			--i;
 			while (i >= 0)
 			{
-				free(p->philo[i]);
+				free(p->p[i]);
 				--i;
 			}
 			return (1);
@@ -44,13 +44,13 @@ int	alloc_timer(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		p->timer[i] = (pthread_t *)malloc(sizeof (pthread_t));
-		if (p->timer[i] == NULL)
+		p->t[i] = (pthread_t *)malloc(sizeof (pthread_t));
+		if (p->t[i] == NULL)
 		{
 			--i;
 			while (i >= 0)
 			{
-				free(p->timer[i]);
+				free(p->t[i]);
 				--i;
 			}
 			return (1);
@@ -67,18 +67,18 @@ int	alloc_mutex(t_philo *p)
 	i = 0;
 	while (i < p->n)
 	{
-		p->mutex[i] = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
-		if (p->mutex[i] == NULL)
+		p->m[i] = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t));
+		if (p->m[i] == NULL)
 		{
 			--i;
 			while (i >= 0)
 			{
-				free(p->mutex[i]);
+				free(p->m[i]);
 				--i;
 			}
 			return (1);
 		}
-		pthread_mutex_init(p->mutex[i], NULL);
+		pthread_mutex_init(p->m[i], NULL);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 12:58:55 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:26:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ static void	assign_args(int argc, char **argv, t_philo *p)
 int	init_struct(int argc, char **argv, t_philo *p)
 {
 	assign_args(argc, argv, p);
-	p->philo = NULL;
-	p->timer = NULL;
-	p->mutex = NULL;
+	p->p = NULL;
+	p->t = NULL;
+	p->m = NULL;
 	p->eating = NULL;
+	p->ready = NULL;
 	if (argc == 6)
 	{
 		p->opt = 1;
@@ -51,7 +52,7 @@ int	init_struct(int argc, char **argv, t_philo *p)
 		p->all_have_eaten = 0;
 		p->times_eaten = NULL;
 		p->eaten_enough = NULL;
-		p->supervisor = NULL;
+		p->s = NULL;
 	}
 	else
 		p->opt = 0;
