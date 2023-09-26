@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/06 09:19:11 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:42:46 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	simulation(t_philo *philo)
 		pthread_create(philo->philo[i], NULL, &philo_routine, philo);
 		pthread_create(philo->timer[i], NULL, &timer_routine, philo);
 		i++;
-		usleep(10);
+		ft_usleep(10);
 	}
 	philo->supervisor = (pthread_t *)malloc(sizeof (pthread_t));
 	pthread_create(philo->supervisor, NULL, &super_routine, philo);

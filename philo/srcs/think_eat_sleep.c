@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:20:09 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:55:39 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:47:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	p_think(t_philo *philo, int id, int *delay)
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
 	printf("%llu %d is thinking\n", get_time(philo), id);
-	return (0);
-	if (*delay == 0 && (id % 2) != 0)
-	{
-		usleep(philo->teat * 0.5);
+/* 	if (*delay == 0 && (id % 2) != 0)
+	{	
+		ft_usleep(philo->teat * 0.1);
 		*delay = 1;
-	}
+		printf("%llu, philo %d was delayed %f\n", get_time(philo), id, philo->teat * 0.1);
+	} */
+	return (0);
 }
 
 int	p_eat(t_philo *philo, int id)
@@ -35,7 +36,7 @@ int	p_eat(t_philo *philo, int id)
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
 	printf("%llu %d is eating\n", get_time(philo), id);
-	ft_usleep(philo, philo->teat);
+	ft_usleep(philo->teat);
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
 	if (philo->opt == 1 && philo->eaten_enough[id - 1] != 1)
@@ -54,7 +55,7 @@ int	p_sleep(t_philo *philo, int id)
 		return (1);
 	philo->eating[id - 1] = 0;
 	printf("%llu %d is sleeping\n", get_time(philo), id);
-	ft_usleep(philo, philo->tsleep);
+	ft_usleep(philo->tsleep);
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
 	return (0);

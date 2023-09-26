@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/06 09:47:40 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:42:06 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	release_all(t_philo *philo)
 }
 
 void	release_forks(t_philo *philo, int id)
-{
+{	
 	if (id == 1)
 	{
 		pthread_mutex_unlock(philo->mutex[0]);
@@ -37,6 +37,7 @@ void	release_forks(t_philo *philo, int id)
 		pthread_mutex_unlock(philo->mutex[id - 1]);
 		pthread_mutex_unlock(philo->mutex[id - 2]);
 	}
+	printf("%llu %d has released both forks\n", get_time(philo), id);
 }
 
 static void	one_fork(t_philo *philo, int id)
@@ -52,11 +53,11 @@ static int	philosoper_one(t_philo *philo, int id)
 	pthread_mutex_lock(philo->mutex[0]);
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
-	printf("%llu %d has taken left fork\n", get_time(philo), id);
+	printf("%llu %d has taken left fork (0)\n", get_time(philo), id);
 	pthread_mutex_lock(philo->mutex[philo->n - 1]);
 	if (philo->death == 1 || philo->all_have_eaten == 1)
 		return (1);
-	printf("%llu %d has taken right fork\n", get_time(philo), id);
+	printf("%llu %d has taken right fork (%d)\n", get_time(philo), id, philo->n - 1);
 	return (0);
 }
 
@@ -73,11 +74,11 @@ int	grab_forks(t_philo *philo, int id)
 			pthread_mutex_lock(philo->mutex[id - 1]);
 			if (philo->death == 1 || philo->all_have_eaten == 1)
 				return (1);
-			printf("%llu %d has taken left fork\n", get_time(philo), id);
+			printf("%llu %d has taken left fork (%d)\n", get_time(philo), id, id - 1);
 			pthread_mutex_lock(philo->mutex[id - 2]);
 			if (philo->death == 1 || philo->all_have_eaten == 1)
 				return (1);
-			printf("%llu %d has taken right fork\n", get_time(philo), id);
+			printf("%llu %d has taken right fork (%d)\n", get_time(philo), id, id - 2);
 		}
 	}
 	return (0);
