@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_philo.c                                        :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 10:52:01 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:20:02 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,18 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-void	run_philo(t_philo *p, int id)
+void	routine(void *arg)
 {
-	int	delay;
+	t_philo		*philo;
 
-	delay = 0;
-	p->ready[id - 1] = 1;
-	while (!p->start)
+	philo = (t_philo *)arg;
+	while (!philo->par->ready)
 		continue ;
-	while (p->death != 1 && p->eaten != 1)
+	if (philo->id + 1 % 2 != 0)
+		ft_usleep(philo->par->teat * 0.9 + 1);
+	while (philo->par->death != 1 && philo->par->eaten != 1)
 	{
-		if (p_think(p, id, &delay) == 1)
-			return ;
-		if (p_eat(p, id) == 1)
-			return ;
-		if (p_sleep(p, id) == 1)
-			return ;
+		p_eat(philo);
+		p_sleep_think(philo);
 	}
 }

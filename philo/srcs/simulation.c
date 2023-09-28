@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 11:08:58 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:24:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,55 +16,46 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static	void	wait_for_threads(t_philo *p)
+static	void	wait_for_threads(t_param *param, t_philo *philo)
 {
 	int	i;
 
-	i = 0;
-	while (i < p->n)
+	i = -1;
+	while (++i < param->n)
 	{
-		pthread_join(*(p->p[i]), NULL);
-		pthread_join(*(p->t[i]), NULL);
+		pthread_join(philo[i].philo_thread, NULL);
 		i++;
 	}
-	pthread_join(*(p->s), NULL);
 }
 
-static void	*t_r(void *arg)
+static void	*routine(void *arg)
 {
 	static int	id;
 	t_philo		*p;
 
 	p = (t_philo *)arg;
-	++id;
-	timer(p, id);
-	return (NULL);
-}
-
-static void	*p_r(void *arg)
-{
-	static int	id;
-	t_philo		*p;
-
-	p = (t_philo *)arg;
-	++id;
 	run_philo(p, id);
 	return (NULL);
 }
 
-void	simulation(t_param *param, t_philo *p)
+void	simulation(t_param *param, t_philo *philo)
 {
 	int	i;
 
-	i = 0;
-	p->s_t = get_start_time();
-	while (i < param->n)
+	i = -1;
+	while (++i < param->n)
 	{
-		pthread_create(p->p[i], NULL, &p_r, p);
-		pthread_create(p->t[i], NULL, &t_r, p);
+		pthread_create(&philo[i].philo_thread, NULL, &routine, &philo[i]);
 		i++;
 	}
-	p->s = (pthread_t *)malloc(sizeof (pthread_t));
-	pthread_create(p->s, NULL, &super_routine, p);
-	wait_for_threads(p);
+	i = -1;
+	param->start = get_start_time();
+	while (++i < param->n)
+	{
+		philo[i].thread_start = param->start;
+		philo[i].last_meal = param->start;
+	}
+	param->ready = 1;
+	check_threads(param, philo);
+	wait_for_threads(param, philo);
 }

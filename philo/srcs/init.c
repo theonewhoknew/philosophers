@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 11:09:11 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 12:19:47 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,46 @@ static void	assign_args(int argc, char **argv, t_param *param)
 	if (argc == 6)
 	{
 		param->opt = 1;
-		param->neat = ft_atoi(argv[5]);
+		param->max_iters = ft_atoi(argv[5]);
 		param->eaten = 0;
 	}
 	else
 		param->opt = 0;
 }
 
-int	init_params(int argc, char **argv, t_param *param)
+int	init_params(int argc, char **argv, t_param *p)
 {
-	assign_args(argc, argv, param);
-	param->start = 0;
-	param->death = 0;
+	assign_args(argc, argv, p);
+	p->start = 0;
+	p->ready = 0;
+	p->death = 0;
+	p->fork = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t) * p->n);
+	if (!p->fork)
+		return (1);
+	return (0);
+}
+
+int	init_philo(t_param *p, t_philo *philo)
+{	
+	int i;
+
+	philo = (t_philo *)malloc(sizeof (t_philo) * p->n);
+	if (!philo)
+		return (1);
+	i = -1;
+	while (++i < p->n)
+	{
+		philo[i].id = i;
+		philo[i].dead = 0;
+		philo[i].iters = 0;
+		philo[i].thread_start = 0;
+		philo[i].last_meal = 0;
+		philo[i].par = p;
+		philo[i].l_f = &p->fork[i];
+		if (i == p->n - 1)
+			philo[i].r_f = &p->fork[0];
+		else
+			philo[i].r_f = &p->fork[i + 1];
+	}
 	return (0);
 }

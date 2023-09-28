@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:59:36 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:26:43 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:42:08 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ uint64_t	get_start_time(void)
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
 
-uint64_t	get_time(t_philo *p)
+uint64_t	get_time(t_param *p)
 {
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
 		return (1);
 	return (((tv.tv_sec * (uint64_t)1000)
-			+ (tv.tv_usec / 1000)) - p->s_t);
+			+ (tv.tv_usec / 1000)) - p->start);
 }
 
 int	ft_usleep(useconds_t time)
