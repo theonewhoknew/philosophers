@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:19:27 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:34:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:38:31 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int  check_start(t_philo *p)
 void	*super_routine(void *arg)
 {
 	int		i;
+	int		c;
 	t_philo	*p;
 
 	p = (t_philo *)arg;
@@ -41,16 +42,17 @@ void	*super_routine(void *arg)
 	if (p->opt == 1)
 	{
 		while (p->death != 1 && p->all_have_eaten != 1)
-		{
+		{	
+			c = 0;
 			i = 0;
 			while (i < p->n && p->death != 1)
 			{
 				if (p->eaten_enough[i] == 1)
-				{
-					++i;
-				}
+					++c;
+				i++;
 			}
-			p->all_have_eaten = 1;
+			if (c == p->n)
+				p->all_have_eaten = 1;
 		}
 	}
 	return (NULL);
