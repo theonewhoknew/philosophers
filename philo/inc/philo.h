@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 17:36:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:44:11 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ void		free_struct(t_philo *philo);
 
 void		free_philo(t_philo *philo);
 void		free_timer(t_philo *philo);
-
-void		p_eat(t_philo *philo);
-void		p_sleep_think(t_philo *philo);
 
 int			grab_forks(t_philo *philo);
 void		release_forks(t_philo *philo);

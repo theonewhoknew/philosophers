@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 17:36:25 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:45:59 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void	simulation(t_param *param, t_philo *philo)
 
 	i = -1;
 	while (++i < param->n)
-	{
 		pthread_create(&philo[i].philo_thread, NULL, &routine, &philo[i]);
-		i++;
-	}
 	i = -1;
 	param->start = get_start_time();
 	while (++i < param->n)

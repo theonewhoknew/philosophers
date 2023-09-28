@@ -2,7 +2,7 @@ NAME = philo
 
 OBJECTS_DIR = objs
 	
-SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c routine.c check_threads.c forks.c eat_sleep_think.c timer.c print_utils.c)
+SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c routine.c check_threads.c forks.c timer.c print_utils.c)
 						
 
 OBJS = $(patsubst srcs/%.c,$(OBJECTS_DIR)/%.o, $(SRCS))
