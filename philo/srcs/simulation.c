@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 12:24:23 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:36:25 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static	void	wait_for_threads(t_param *param, t_philo *philo)
+static void	wait_for_threads(t_param *param, t_philo *philo)
 {
 	int	i;
 
@@ -26,16 +26,6 @@ static	void	wait_for_threads(t_param *param, t_philo *philo)
 		pthread_join(philo[i].philo_thread, NULL);
 		i++;
 	}
-}
-
-static void	*routine(void *arg)
-{
-	static int	id;
-	t_philo		*p;
-
-	p = (t_philo *)arg;
-	run_philo(p, id);
-	return (NULL);
 }
 
 void	simulation(t_param *param, t_philo *philo)

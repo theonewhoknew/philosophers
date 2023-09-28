@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 11:51:50 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:35:45 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	main(int argc, char **argv)
 		write(2, "Argument error.\n", 17);
 		return (1);
 	}
-	if (init_params(argc, argv, &p) || init_philo(&p, philo))
+	init_params(argc, argv, &p);
+	philo = init_philo(&p, philo);
+	if (!philo)
 		return (1);
+	simulation(&p, philo);
 }

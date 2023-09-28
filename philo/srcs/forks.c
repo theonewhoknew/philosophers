@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 12:09:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:17:56 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	grab_forks(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->l_f);
-		printf("%llu %d has taken left fork (%d)\n", get_time(philo->par), philo->id);
+		printf("%llu %d has taken left fork\n", get_time(philo->par), philo->id);
 		pthread_mutex_lock(philo->r_f);
-		printf("%llu %d has taken right fork (%d)\n", get_time(philo->par), philo->id);
+		printf("%llu %d has taken right fork\n", get_time(philo->par), philo->id);
 	}
 	return (0);
 }

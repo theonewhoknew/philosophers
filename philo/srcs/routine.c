@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/28 12:20:02 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:36:17 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-void	routine(void *arg)
+void	*routine(void *arg)
 {
 	t_philo		*philo;
 
@@ -30,4 +30,5 @@ void	routine(void *arg)
 		p_eat(philo);
 		p_sleep_think(philo);
 	}
+	return (NULL);
 }

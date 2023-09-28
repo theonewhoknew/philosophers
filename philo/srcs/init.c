@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 12:19:47 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:37:03 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,17 @@ int	init_params(int argc, char **argv, t_param *p)
 	p->fork = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t) * p->n);
 	if (!p->fork)
 		return (1);
+	print_params(p);
 	return (0);
 }
 
-int	init_philo(t_param *p, t_philo *philo)
+t_philo	*init_philo(t_param *p, t_philo *philo)
 {	
 	int i;
 
 	philo = (t_philo *)malloc(sizeof (t_philo) * p->n);
 	if (!philo)
-		return (1);
+		return (NULL);
 	i = -1;
 	while (++i < p->n)
 	{
@@ -79,5 +80,5 @@ int	init_philo(t_param *p, t_philo *philo)
 		else
 			philo[i].r_f = &p->fork[i + 1];
 	}
-	return (0);
+	return (philo);
 }
