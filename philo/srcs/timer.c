@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:21:28 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:13:15 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:50:47 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,26 @@ static void	philo_died(t_philo *p, int id)
 
 void	timer(t_philo *p, int id)
 {
-	uint64_t	last_meal_time;
-	uint64_t	elapsed;
+	uint64_t	last;
+	uint64_t	ela;
 
-	last_meal_time = get_time(p);
-	while (p->death != 1 && p->all_have_eaten != 1)
-	{
-		while (!p->eating[id - 1] && !p->all_have_eaten
-			&& !p->death)
+	while (!p->start)
+		continue ;
+	last = get_time(p);
+	while (p->death != 1 && p->eaten != 1)
+	{	
+		while (!p->eating[id - 1])
 		{
-			elapsed = get_time(p) - last_meal_time;
-			if (elapsed > p->tdie)
+			ela = get_time(p) - last;
+			if (ela > p->tdie)
 				return (philo_died(p, id));
-			ft_usleep(1);
 		}
-		if (p->eating[id - 1])
-			last_meal_time = get_time(p);
-		while (p->eating[id - 1] && !p->all_have_eaten
-			&& !p->death)
+		last = get_time(p);
+		while (p->eating[id - 1])
 		{
-			elapsed = get_time(p) - last_meal_time;
-			if (elapsed > p->tdie)
+			ela = get_time(p) - last;
+			if (ela > p->tdie)
 				return (philo_died(p, id));
-			ft_usleep(1);
 		}
 	}
 	release_all(p);

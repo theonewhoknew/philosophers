@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 16:33:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:58:54 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static void	*t_r(void *arg)
 
 	p = (t_philo *)arg;
 	++id;
-	while (!p->start)
-		continue ;
 	timer(p, id);
 	return (NULL);
 }

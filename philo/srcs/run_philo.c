@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 16:29:18 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:52:01 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ void	run_philo(t_philo *p, int id)
 	int	delay;
 
 	delay = 0;
-/* 	p->ready[id - 1] = 1;
+	p->ready[id - 1] = 1;
 	while (!p->start)
 		continue ;
-	usleep(id); */
-	while (p->death != 1 && p->all_have_eaten != 1)
+	while (p->death != 1 && p->eaten != 1)
 	{
 		if (p_think(p, id, &delay) == 1)
 			return ;

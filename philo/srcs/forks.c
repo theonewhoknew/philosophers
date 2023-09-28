@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:27:59 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:55:57 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static void	one_fork(t_philo *p, int id)
 static int	philosoper_one(t_philo *p, int id)
 {
 	pthread_mutex_lock(p->m[p->n - 1]);
-	if (p->death == 1 || p->all_have_eaten == 1)
-		return (1);
+/* 	if (p->death == 1 || p->eaten == 1)
+		return (1); */
 	printf("%llu %d has taken left fork (%d)\n", get_time(p), id, p->n);
 	pthread_mutex_lock(p->m[0]);
-	if (p->death == 1 || p->all_have_eaten == 1)
-		return (1);
+/* 	if (p->death == 1 || p->eaten == 1)
+		return (1); */
 	printf("%llu %d has taken right fork (%d)\n", get_time(p), id, id);
 	return (0);
 }
@@ -71,12 +71,12 @@ int	grab_forks(t_philo *p, int id)
 		else
 		{	
 			pthread_mutex_lock(p->m[id - 2]);
-			if (p->death == 1 || p->all_have_eaten == 1)
-				return (1);
+	/* 		if (p->death == 1 || p->eaten == 1)
+				return (1); */
 			printf("%llu %d has taken left fork (%d)\n", get_time(p), id, id - 1);
 			pthread_mutex_lock(p->m[id - 1]);
-			if (p->death == 1 || p->all_have_eaten == 1)
-				return (1);
+/* 			if (p->death == 1 || p->eaten == 1)
+				return (1); */
 			printf("%llu %d has taken right fork (%d)\n", get_time(p), id, id);
 		}
 	}

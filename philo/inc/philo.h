@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:32:08 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:33:35 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 	int				*ready;
 	int				*eaten_enough;
 	int				*times_eaten;
-	int				all_have_eaten;
+	int				eaten;
 }				t_philo;
 
 int			check_args(int argc, char **argv);

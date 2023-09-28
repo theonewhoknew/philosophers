@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:19:27 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:38:31 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:47:30 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	*super_routine(void *arg)
 	t_philo	*p;
 
 	p = (t_philo *)arg;
-/* 	while (check_start(p) == 0)
-		continue ; */
-//	p->s_t = get_start_time();
-//	p->start = 1;
+	while (check_start(p) == 0)
+		continue ;
+	p->s_t = get_start_time();
+	p->start = 1;
 	if (p->opt == 1)
 	{
-		while (p->death != 1 && p->all_have_eaten != 1)
+		while (p->death != 1 && p->eaten != 1)
 		{	
 			c = 0;
 			i = 0;
@@ -52,7 +52,7 @@ void	*super_routine(void *arg)
 				i++;
 			}
 			if (c == p->n)
-				p->all_have_eaten = 1;
+				p->eaten = 1;
 		}
 	}
 	return (NULL);

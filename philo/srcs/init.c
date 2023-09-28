@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/26 16:26:57 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:34:48 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	init_struct(int argc, char **argv, t_philo *p)
 	{
 		p->opt = 1;
 		p->neat = ft_atoi(argv[5]);
-		p->all_have_eaten = 0;
+		p->eaten = 0;
 		p->times_eaten = NULL;
 		p->eaten_enough = NULL;
 		p->s = NULL;
