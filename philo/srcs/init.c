@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 10:34:48 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:09:11 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,26 @@ static int	ft_atoi(const char *str)
 	return (result);
 }
 
-static void	assign_args(int argc, char **argv, t_philo *p)
+static void	assign_args(int argc, char **argv, t_param *param)
 {
-	p->n = ft_atoi(argv[1]);
-	p->tdie = ft_atoi(argv[2]);
-	p->teat = ft_atoi(argv[3]);
-	p->tsleep = ft_atoi(argv[4]);
-}
-
-int	init_struct(int argc, char **argv, t_philo *p)
-{
-	assign_args(argc, argv, p);
-	p->p = NULL;
-	p->t = NULL;
-	p->m = NULL;
-	p->eating = NULL;
-	p->ready = NULL;
+	param->n = ft_atoi(argv[1]);
+	param->tdie = ft_atoi(argv[2]);
+	param->teat = ft_atoi(argv[3]);
+	param->tsleep = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
-		p->opt = 1;
-		p->neat = ft_atoi(argv[5]);
-		p->eaten = 0;
-		p->times_eaten = NULL;
-		p->eaten_enough = NULL;
-		p->s = NULL;
+		param->opt = 1;
+		param->neat = ft_atoi(argv[5]);
+		param->eaten = 0;
 	}
 	else
-		p->opt = 0;
-	p->death = 0;
+		param->opt = 0;
+}
+
+int	init_params(int argc, char **argv, t_param *param)
+{
+	assign_args(argc, argv, param);
+	param->start = 0;
+	param->death = 0;
 	return (0);
 }

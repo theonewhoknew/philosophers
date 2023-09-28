@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:15 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/26 10:00:21 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:10:53 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 #include <unistd.h>
 
 int	main(int argc, char **argv)
-{
-	t_philo	p;
+{	
+	t_param param;
 
 	if (check_args(argc, argv) == 1)
 	{
 		write(2, "Argument error.\n", 17);
 		return (1);
 	}
-	init_struct(argc, argv, &p);
+	init_params(argc, argv, &param);
 	if (allocate_struct(&p) == 1)
 		return (1);
 	simulation(&p);

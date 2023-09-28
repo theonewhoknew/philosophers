@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 10:33:35 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:08:52 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@
 # include <unistd.h>
 # include <stdint.h>
 
+typedef struct s_param
+{
+	int				n;
+	int				tdie;
+	int				teat;
+	int				tsleep;
+	int				opt;
+	int				neat;
+	int				eaten;
+	int				start;
+	int				death;
+}
+			t_param;
+
 typedef struct s_philo
 {
 	pthread_t		**p;
@@ -25,25 +39,25 @@ typedef struct s_philo
 	pthread_mutex_t	**m;
 	pthread_t		*s;
 	uint64_t		s_t;
-	int				n;
-	int				start;
-	int				tdie;
-	int				teat;
-	int				tsleep;
-	int				neat;
+	
+	
+	
+	
+	
 	int				*eating;
-	int				death;
-	int				opt;
+	
+	
 	int				*ready;
 	int				*eaten_enough;
 	int				*times_eaten;
-	int				eaten;
+	
 }				t_philo;
 
+int			init_params(int argc, char **argv, t_param *param);
+
 int			check_args(int argc, char **argv);
-int			init_struct(int argc, char **argv, t_philo *philo);
 int			allocate_struct(t_philo *philo);
-void		simulation(t_philo *philo);
+void		simulation(t_param *param, t_philo *philo);
 void		run_philo(t_philo *philo, int id);
 void		timer(t_philo *philo, int id);
 void		free_struct(t_philo *philo);
