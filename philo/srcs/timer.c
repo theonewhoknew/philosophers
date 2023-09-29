@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   timer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:59:36 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 17:17:13 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/29 09:28:13 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-uint64_t	get_start_time(void)
+int64_t	get_start_time(void)
 {
 	struct timeval	tv;
 
@@ -21,7 +21,7 @@ uint64_t	get_start_time(void)
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
 
-uint64_t	get_time(t_param *param)
+int64_t	get_time(t_param *param)
 {
 	struct timeval	tv;
 
@@ -31,7 +31,7 @@ uint64_t	get_time(t_param *param)
 			+ (tv.tv_usec / 1000)) - param->start);
 }
 
-int	ft_usleep(useconds_t time)
+int	ft_usleep(int64_t time)
 {
 	uint64_t	start;
 
