@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/29 09:59:37 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/29 10:57:59 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	simulation(t_param *param, t_philo *philo)
 	param->start = get_start_time();
 	while (++i < param->n)
 	{
-		philo[i].thread_start = param->start;
-		philo[i].last_meal = param->start;
+		philo[i].thread_start = 0;
+		philo[i].last_meal = 0;
 	}
 	param->ready = 1;
 	check_threads(param, philo);

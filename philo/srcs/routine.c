@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/29 10:16:23 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/29 10:50:20 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	*routine(void *arg)
 	while (!philo->par->ready)
 		continue ;
 	if ((philo->id + 1) % 2 != 0)
-	{
-		print_state(philo, DEBUG);
 		ft_usleep(philo->par->teat * 0.9 + 1);
-	}
 	while (philo->par->end != 1)
 	{
 		p_eat(philo);
