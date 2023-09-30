@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/29 10:25:47 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/09/30 10:54:57 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,20 @@ static void	assign_args(int argc, char **argv, t_param *param)
 
 int	init_params(int argc, char **argv, t_param *p)
 {
+	int	i;
+
+	i = -1;
 	assign_args(argc, argv, p);
+	pthread_mutex_init(&p->m_end, NULL);
+	pthread_mutex_init(&p->m_print, NULL);
 	p->start = 0;
 	p->ready = 0;
 	p->end = 0;
 	p->fork = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t) * p->n);
 	if (!p->fork)
 		return (1);
+	while (++i < p->n)
+		pthread_mutex_init(&(p->fork[i]), NULL);
 	return (0);
 }
 
@@ -60,6 +67,7 @@ t_philo	*init_philo(t_param *p, t_philo *philo)
 	philo = (t_philo *)malloc(sizeof (t_philo) * p->n);
 	if (!philo)
 		return (NULL);
+	p->philo = philo;
 	i = -1;
 	while (++i < p->n)
 	{
