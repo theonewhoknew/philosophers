@@ -6,7 +6,7 @@
 /*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/30 10:54:57 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/01 10:55:30 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ int	init_params(int argc, char **argv, t_param *p)
 	p->end = 0;
 	p->fork = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t) * p->n);
 	if (!p->fork)
+	{
+		perror("malloc failed; ");
 		return (1);
+	}
 	while (++i < p->n)
 		pthread_mutex_init(&(p->fork[i]), NULL);
 	return (0);
@@ -66,7 +69,10 @@ t_philo	*init_philo(t_param *p, t_philo *philo)
 
 	philo = (t_philo *)malloc(sizeof (t_philo) * p->n);
 	if (!philo)
+	{
+		perror("malloc failed; ");
 		return (NULL);
+	}
 	p->philo = philo;
 	i = -1;
 	while (++i < p->n)
