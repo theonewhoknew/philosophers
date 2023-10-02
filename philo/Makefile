@@ -12,10 +12,10 @@ CFLAGS = -Wall -Werror -Wextra -I inc/
 all: $(NAME) 
 
 $(NAME) : $(OBJS) inc/philo.h
-	gcc -pthread -g -o $(NAME) $(OBJS)
+	gcc -pthread -o $(NAME) $(OBJS)
 
 objs/%.o : srcs/%.c inc/philo.h Makefile | $(OBJECTS_DIR)
-	cc -g -c  $< -o $@
+	cc -c  $< -o $@
 
 $(OBJECTS_DIR) :
 	mkdir -p $(OBJECTS_DIR)
