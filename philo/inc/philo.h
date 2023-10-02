@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/02 12:56:19 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:09:55 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,8 @@
 # include <unistd.h>
 # include <stdint.h>
 
-# define EAT	1
-# define SLEEP	2
-# define THINK	3
-# define FORK	4
-# define DIE	5
-# define ITERS	6
-# define DEBUG	7
+# define DIE	1
+# define ITERS	2
 
 typedef struct s_param
 {
@@ -75,7 +70,13 @@ int64_t		get_time(t_param *param);
 int64_t		get_start_time(void);
 int			ft_usleep(int64_t time);
 
-void		print_params(t_param *param);
-void		print_state(t_philo *philo, int type);
+void		print_eat(t_philo *philo);
+void		print_sleep(t_philo *philo);
+void		print_think(t_philo *philo);
+void		print_fork(t_philo *philo);
+void		print_end(t_philo *philo, int type);
+
+void		print_aux(int64_t ms, int id, char *str);
+int			check_death(t_philo *philo);
 
 #endif

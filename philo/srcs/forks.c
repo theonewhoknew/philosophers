@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/02 13:53:23 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:05:18 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	release_all(t_param *param)
 
 void	release_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->l_f);
 	pthread_mutex_unlock(philo->r_f);
+	pthread_mutex_unlock(philo->l_f);
 }
 
 static void	one_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_f);
-	print_state(philo, FORK);
+	print_fork(philo);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->par->m_end);
@@ -50,10 +50,20 @@ int	grab_forks(t_philo *philo)
 		one_fork(philo);
 	else
 	{
-		pthread_mutex_lock(philo->l_f);
-		print_state(philo, FORK);
-		pthread_mutex_lock(philo->r_f);
-		print_state(philo, FORK);
+		if ((philo->id + 1) % 2)
+		{
+			pthread_mutex_lock(philo->l_f);
+			print_fork(philo);
+			pthread_mutex_lock(philo->r_f);
+			print_fork(philo);
+		}
+		else
+		{
+			pthread_mutex_lock(philo->r_f);
+			print_fork(philo);
+			pthread_mutex_lock(philo->l_f);
+			print_fork(philo);
+		}
 	}
 	return (0);
 }

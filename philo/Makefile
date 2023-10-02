@@ -2,7 +2,8 @@ NAME = philo
 
 OBJECTS_DIR = objs
 	
-SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c routine.c check_threads.c forks.c timer.c print_utils.c)
+SRCS = $(addprefix srcs/, main.c check_args.c init.c simulation.c routine.c check_threads.c forks.c timer.c print_utils.c \
+		print.c print_aux.c)
 
 OBJS = $(patsubst srcs/%.c,$(OBJECTS_DIR)/%.o, $(SRCS))
 
@@ -11,10 +12,10 @@ CFLAGS = -Wall -Werror -Wextra -I inc/
 all: $(NAME) 
 
 $(NAME) : $(OBJS) inc/philo.h
-	gcc -o $(NAME) $(OBJS) -fsanitize=thread -g -pthread
+	gcc -o $(NAME) $(OBJS) -g -pthread
 
 objs/%.o : srcs/%.c inc/philo.h Makefile | $(OBJECTS_DIR)
-	gcc -c -fsanitize=thread  $< -o $@
+	gcc -c $< -o $@
 
 $(OBJECTS_DIR) :
 	mkdir -p $(OBJECTS_DIR)

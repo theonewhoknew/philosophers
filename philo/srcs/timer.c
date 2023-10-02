@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   timer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:59:36 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/02 13:59:40 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 20:49:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int64_t	get_time(t_param *param)
 
 	if (gettimeofday(&tv, NULL))
 		return (1);
-	pthread_mutex_lock(&param->m_start);
 	time = ((tv.tv_sec * (uint64_t)1000)
 			+ (tv.tv_usec / 1000)) - param->start;
-	pthread_mutex_unlock(&param->m_start);
 	return (time);
 }
 

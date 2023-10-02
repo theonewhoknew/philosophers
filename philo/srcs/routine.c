@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 13:48:17 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:03:35 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 static void	p_eat(t_philo *philo)
 {
-	int	time;
+	int		time;
+	int64_t	last;
 
 	grab_forks(philo);
-	print_state(philo, EAT);
+	print_eat(philo);
+	last = get_time(philo->par);
 	pthread_mutex_lock(&philo->m_last);
-	philo->last = get_time(philo->par);
+	philo->last = last;
 	pthread_mutex_unlock(&philo->m_last);
 	ft_usleep(philo->par->teat);
 	pthread_mutex_lock(&philo->m_iters);
@@ -34,9 +36,9 @@ static void	p_eat(t_philo *philo)
 
 static void	p_sleep_think(t_philo *philo)
 {
-	print_state(philo, SLEEP);
+	print_sleep(philo);
 	ft_usleep(philo->par->tsleep);
-	print_state(philo, THINK);
+	print_think(philo);
 }
 
 void	*routine(void *arg)

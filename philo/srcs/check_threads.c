@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:14:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/02 13:05:12 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:04:29 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 static void	make_end(t_philo *ph, t_param *p, int i, int type)
 {
 	if (type == 1)
-		print_state(&ph[i], DIE);
+		print_end(&ph[i], DIE);
 	else
-		print_state(&ph[i], ITERS);
+		print_end(&ph[i], ITERS);
 	pthread_mutex_lock(&(p->m_end));
 	p->end = 1;
 	pthread_mutex_unlock(&(p->m_end));
@@ -57,5 +57,4 @@ void	check_threads(t_param *p, t_philo *ph)
 				make_end(ph, p, i, 2);
 		}
 	}
-	pthread_mutex_unlock(&p->m_end);
 }
