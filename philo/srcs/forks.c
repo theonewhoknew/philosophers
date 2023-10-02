@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/28 17:44:50 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/09/29 10:16:32 by theonewhokn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	release_forks(t_philo *philo)
 static void	one_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_f);
-	printf("%llu %d has taken left fork\n", get_time(philo->par), philo->id + 1);
+	print_state(philo, FORK);
+	while (!philo->par->end)
+		continue ;
 }
 
 int	grab_forks(t_philo *philo)
@@ -44,9 +46,9 @@ int	grab_forks(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->l_f);
-		printf("%llu %d has taken left fork\n", get_time(philo->par), philo->id + 1);
+		print_state(philo, FORK);
 		pthread_mutex_lock(philo->r_f);
-		printf("%llu %d has taken right fork\n", get_time(philo->par), philo->id + 1);
+		print_state(philo, FORK);
 	}
 	return (0);
 }
