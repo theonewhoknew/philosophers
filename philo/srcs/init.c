@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:18:00 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/01 10:55:30 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 12:47:36 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	init_params(int argc, char **argv, t_param *p)
 	assign_args(argc, argv, p);
 	pthread_mutex_init(&p->m_end, NULL);
 	pthread_mutex_init(&p->m_print, NULL);
+	pthread_mutex_init(&p->m_ready, NULL);
+	pthread_mutex_init(&p->m_start, NULL);
 	p->start = 0;
 	p->ready = 0;
 	p->end = 0;
@@ -78,16 +80,16 @@ t_philo	*init_philo(t_param *p, t_philo *philo)
 	while (++i < p->n)
 	{
 		philo[i].id = i;
-		philo[i].dead = 0;
 		philo[i].iters = 0;
-		philo[i].thread_start = 0;
-		philo[i].last_meal = 0;
+		philo[i].last = 0;
 		philo[i].par = p;
 		philo[i].l_f = &p->fork[i];
 		if (i == p->n - 1)
 			philo[i].r_f = &p->fork[0];
 		else
 			philo[i].r_f = &p->fork[i + 1];
+		pthread_mutex_init(&philo[i].m_last, NULL);
+		pthread_mutex_init(&philo[i].m_iters, NULL);
 	}
 	return (philo);
 }

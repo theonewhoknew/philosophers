@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/09/30 11:04:06 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 11:54:21 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ void	simulation(t_param *param, t_philo *philo)
 
 	i = -1;
 	while (++i < param->n)
-		pthread_create(&philo[i].philo_thread, NULL, &routine, &philo[i]);
-	i = -1;
-	param->start = get_start_time();
-	while (++i < param->n)
 	{
-		philo[i].thread_start = 0;
-		philo[i].last_meal = 0;
+		pthread_create(&philo[i].philo_thread, NULL, &routine, &philo[i]);
 	}
+	i = -1;
+	while (++i < param->n)
+		philo[i].last = 0;
+	param->start = get_start_time();
+	pthread_mutex_lock(&param->m_ready);
 	param->ready = 1;
+	pthread_mutex_unlock(&param->m_ready);
 	check_threads(param, philo);
 	wait_for_threads(param, philo);
 	free_all(param);

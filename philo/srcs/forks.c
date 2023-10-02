@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:15:59 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/29 10:16:32 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 13:53:23 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ static void	one_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_f);
 	print_state(philo, FORK);
-	while (!philo->par->end)
-		continue ;
+	while (1)
+	{
+		pthread_mutex_lock(&philo->par->m_end);
+		if (philo->par->end)
+			break ;
+		pthread_mutex_unlock(&philo->par->m_end);
+	}
 }
 
 int	grab_forks(t_philo *philo)

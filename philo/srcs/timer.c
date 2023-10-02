@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   timer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:59:36 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/09/29 09:28:13 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/02 13:59:40 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ int64_t	get_start_time(void)
 int64_t	get_time(t_param *param)
 {
 	struct timeval	tv;
+	int64_t			time;
 
 	if (gettimeofday(&tv, NULL))
 		return (1);
-	return (((tv.tv_sec * (uint64_t)1000)
-			+ (tv.tv_usec / 1000)) - param->start);
+	pthread_mutex_lock(&param->m_start);
+	time = ((tv.tv_sec * (uint64_t)1000)
+			+ (tv.tv_usec / 1000)) - param->start;
+	pthread_mutex_unlock(&param->m_start);
+	return (time);
 }
 
 int	ft_usleep(int64_t time)
@@ -37,6 +41,6 @@ int	ft_usleep(int64_t time)
 
 	start = get_start_time();
 	while (get_start_time() - start < time)
-		usleep(time / 10);
+		usleep(100);
 	return (0);
 }
