@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/03 12:23:00 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:04:26 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_param
 	int				max_iters;
 	int				end;
 	int				ready;
-	int64_t			start;
+	int				start;
 	struct s_philo	*philo;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	m_print;
@@ -44,7 +44,7 @@ typedef struct s_philo
 	int				id;
 	int				iters;
 	int				ready;
-	int64_t			last;
+	int				last;
 	t_param			*par;
 	pthread_t		philo_thread;
 	pthread_mutex_t	*l_f;
@@ -66,9 +66,9 @@ int			grab_forks(t_philo *philo);
 int			release_forks(t_philo *philo, int ret);
 void		release_all(t_param *param);
 
-int64_t		get_time(t_param *param);
-int64_t		get_start_time(void);
-int			ft_usleep(int64_t time);
+int			get_time(t_param *param);
+int			get_start_time(void);
+int			ft_usleep(int time, t_param *param);
 
 int			print_eat(t_philo *philo);
 int			print_sleep(t_philo *philo);

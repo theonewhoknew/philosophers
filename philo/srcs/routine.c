@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/03 12:23:16 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:58:44 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	p_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->m_last);
 	philo->last = last;
 	pthread_mutex_unlock(&philo->m_last);
-	ft_usleep(philo->par->teat);
+	ft_usleep(philo->par->teat, philo->par);
 	pthread_mutex_lock(&philo->m_iters);
 	philo->iters++;
 	pthread_mutex_unlock(&philo->m_iters);
@@ -41,7 +41,7 @@ static int	p_sleep_think(t_philo *philo)
 {
 	if (print_sleep(philo))
 		return (1);
-	ft_usleep(philo->par->tsleep);
+	ft_usleep(philo->par->tsleep, philo->par);
 	if (print_think(philo))
 		return (1);
 	return (0);
@@ -62,13 +62,13 @@ void	*routine(void *arg)
 		pthread_mutex_unlock(&philo->par->m_ready);
 	}
 	if ((philo->id + 1) % 2)
-		ft_usleep(philo->par->teat * 0.9 + 1);
+		ft_usleep(philo->par->teat * 0.9 + 1, philo->par);
 	while (1)
 	{
 		if (p_eat(philo))
-			return (NULL);
+			break ;
 		if (p_sleep_think(philo))
-			return (NULL);
+			break ;
 	}
 	return (NULL);
 }
