@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:06:19 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/02 21:09:55 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 12:23:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ void		*routine(void *arg);
 void		check_threads(t_param *param, t_philo *philo);
 
 int			grab_forks(t_philo *philo);
-void		release_forks(t_philo *philo);
+int			release_forks(t_philo *philo, int ret);
 void		release_all(t_param *param);
 
 int64_t		get_time(t_param *param);
 int64_t		get_start_time(void);
 int			ft_usleep(int64_t time);
 
-void		print_eat(t_philo *philo);
-void		print_sleep(t_philo *philo);
-void		print_think(t_philo *philo);
-void		print_fork(t_philo *philo);
-void		print_end(t_philo *philo, int type);
+int			print_eat(t_philo *philo);
+int			print_sleep(t_philo *philo);
+int			print_think(t_philo *philo);
+int			print_fork(t_philo *philo);
+int			print_end(t_philo *philo, int type);
 
 void		print_aux(int64_t ms, int id, char *str);
 int			check_death(t_philo *philo);

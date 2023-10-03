@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 17:14:45 by dtome-pe          #+#    #+#             */
-/*   Updated: 2023/10/02 21:04:29 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 12:15:00 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 static void	make_end(t_philo *ph, t_param *p, int i, int type)
 {
+	pthread_mutex_lock(&(p->m_end));
+	p->end = 1;
+	pthread_mutex_unlock(&(p->m_end));
 	if (type == 1)
 		print_end(&ph[i], DIE);
 	else
 		print_end(&ph[i], ITERS);
-	pthread_mutex_lock(&(p->m_end));
-	p->end = 1;
-	pthread_mutex_unlock(&(p->m_end));
 }
 
 static int64_t	get_last(t_philo *ph, int i)
@@ -32,6 +32,26 @@ static int64_t	get_last(t_philo *ph, int i)
 	last = ph[i].last;
 	pthread_mutex_unlock(&ph[i].m_last);
 	return (last);
+}
+
+static int	is_dead(int64_t elapsed, t_param *p, t_philo *ph, int i)
+{
+	if (elapsed > p->tdie)
+	{
+		make_end(ph, p, i, 1);
+		return (1);
+	}
+	return (0);
+}
+
+static int	has_eaten(int iters, t_param *p, t_philo *ph, int i)
+{
+	if (p->max_iters > 0 && iters > p->max_iters)
+	{
+		make_end(ph, p, i, 2);
+		return (1);
+	}
+	return (0);
 }
 
 void	check_threads(t_param *p, t_philo *ph)
@@ -48,13 +68,13 @@ void	check_threads(t_param *p, t_philo *ph)
 		{
 			last = get_last(ph, i);
 			elapsed = get_time(p) - last;
-			if (elapsed > p->tdie)
-				make_end(ph, p, i, 1);
+			if (is_dead(elapsed, p, ph, i))
+				return ;
 			pthread_mutex_lock(&ph[i].m_iters);
 			iters = ph[i].iters;
 			pthread_mutex_unlock(&ph[i].m_iters);
-			if (p->max_iters > 0 && iters > p->max_iters)
-				make_end(ph, p, i, 2);
+			if (has_eaten(iters, p, ph, i))
+				return ;
 		}
 	}
 }

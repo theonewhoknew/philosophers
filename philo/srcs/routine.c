@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theonewhoknew <theonewhoknew@student.42    +#+  +:+       +#+        */
+/*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:51:39 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 21:03:35 by theonewhokn      ###   ########.fr       */
+/*   Updated: 2023/10/03 12:23:16 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-static void	p_eat(t_philo *philo)
+static int	p_eat(t_philo *philo)
 {
 	int		time;
 	int64_t	last;
 
-	grab_forks(philo);
-	print_eat(philo);
+	if (grab_forks(philo))
+		return (1);
+	if (print_eat(philo))
+		return (1);
 	last = get_time(philo->par);
 	pthread_mutex_lock(&philo->m_last);
 	philo->last = last;
@@ -31,14 +33,18 @@ static void	p_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->m_iters);
 	philo->iters++;
 	pthread_mutex_unlock(&philo->m_iters);
-	release_forks(philo);
+	release_forks(philo, 0);
+	return (0);
 }
 
-static void	p_sleep_think(t_philo *philo)
+static int	p_sleep_think(t_philo *philo)
 {
-	print_sleep(philo);
+	if (print_sleep(philo))
+		return (1);
 	ft_usleep(philo->par->tsleep);
-	print_think(philo);
+	if (print_think(philo))
+		return (1);
+	return (0);
 }
 
 void	*routine(void *arg)
@@ -59,13 +65,10 @@ void	*routine(void *arg)
 		ft_usleep(philo->par->teat * 0.9 + 1);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->par->m_end);
-		if (philo->par->end)
-			break ;
-		pthread_mutex_unlock(&philo->par->m_end);
-		p_eat(philo);
-		p_sleep_think(philo);
+		if (p_eat(philo))
+			return (NULL);
+		if (p_sleep_think(philo))
+			return (NULL);
 	}
-	pthread_mutex_unlock(&philo->par->m_end);
 	return (NULL);
 }

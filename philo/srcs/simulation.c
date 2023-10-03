@@ -6,7 +6,7 @@
 /*   By: dtome-pe <dtome-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 10:52:36 by theonewhokn       #+#    #+#             */
-/*   Updated: 2023/10/02 11:54:21 by dtome-pe         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:11:08 by dtome-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	wait_for_threads(t_param *param, t_philo *philo)
 	int	i;
 
 	i = -1;
+	release_all(param);
 	while (++i < param->n)
 		pthread_join(philo[i].philo_thread, NULL);
 }
